@@ -1,18 +1,29 @@
 package main
 
-import "fmt"
+import (
+    "fmt"
+    "strconv"
+)
 
 func main() {
-    // 変数宣言
-    var name string = "田中太郎"
-    age := 25
-    height := 175.5
-    isStudent := true
+    num := 123
     
-    // 出力
-    fmt.Println("=== プロフィール ===")
-    fmt.Println("名前:", name)
-    fmt.Println("年齢:", age)
-    fmt.Println("身長:", height, "cm")
-    fmt.Println("学生:", isStudent)
+    fmt.Printf("10進数: %d\n", num)
+    
+    // strconv.FormatIntを使用した変換
+    binary := strconv.FormatInt(int64(num), 2)
+    octal := strconv.FormatInt(int64(num), 8)
+    hex := strconv.FormatInt(int64(num), 16)
+    
+    fmt.Printf("2進数:  %s\n", binary)
+    fmt.Printf("8進数:  %s\n", octal)
+    fmt.Printf("16進数: %s\n", hex)
+    
+    // fmt.Sprintfを使用した方法
+    fmt.Printf("\n別の方法:\n")
+    fmt.Printf("2進数:  %b\n", num)
+    fmt.Printf("8進数:  %o\n", num)
+    fmt.Printf("16進数: %x\n", num)
+    fmt.Printf("16進数: %X\n", num) // 大文字
 }
+
