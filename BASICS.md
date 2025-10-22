@@ -900,4 +900,271 @@ func main() {
 ### 演習問題
 
 1. 文字列内の各文字の出現回数を数えるプログラムを作成
-2. 学生の成績管理システム（追加）
+2. 学生の成績管理システム（追加、削除、検索、平均点計算）を実装
+3. 電話帳アプリ（名前から電話番号を検索）を作成
+4. 2つのマップをマージする関数を実装
+
+---
+
+## 学習の進め方
+
+### ステップバイステップガイド
+
+1. **各ディレクトリを順番に作成**
+   ```bash
+   mkdir -p basics/01-hello
+   mkdir -p basics/02-variables
+   mkdir -p basics/03-control-flow
+   mkdir -p basics/04-functions
+   mkdir -p basics/05-arrays-slices
+   mkdir -p basics/06-maps
+   ```
+
+2. **各ファイルを作成して実行**
+   - 各セクションのコードをコピー
+   - ファイルを作成して保存
+   - `go run` コマンドで実行
+   - 動作を確認して理解を深める
+
+3. **コードを改変して実験**
+   - 値を変えて実行
+   - 新しい機能を追加
+   - エラーを意図的に起こして学習
+
+4. **演習問題に挑戦**
+   - 各セクションの演習問題を解く
+   - 解答例は自分で考える
+   - 行き詰まったら前のコードを参考に
+
+### 実行コマンド一覧
+
+```bash
+# Hello World
+cd basics/01-hello && go run main.go
+
+# 変数と型
+cd basics/02-variables && go run main.go
+cd basics/02-variables && go run types.go
+
+# 制御構文
+cd basics/03-control-flow && go run if.go
+cd basics/03-control-flow && go run for.go
+cd basics/03-control-flow && go run switch.go
+
+# 関数
+cd basics/04-functions && go run basic.go
+cd basics/04-functions && go run advanced.go
+
+# 配列とスライス
+cd basics/05-arrays-slices && go run arrays.go
+cd basics/05-arrays-slices && go run slices.go
+
+# マップ
+cd basics/06-maps && go run main.go
+```
+
+---
+
+## 総合演習問題
+
+基礎編の全てを復習するための総合問題です。
+
+### プロジェクト1: シンプルなタスク管理システム
+
+```
+basics/exercises/task-manager/
+├── main.go
+└── README.md
+```
+
+**要件:**
+- タスクの追加、削除、一覧表示
+- タスクの完了状態の管理
+- タスクのフィルタリング（完了/未完了）
+
+**使用する概念:**
+- スライス（タスクのリスト）
+- マップ（タスクIDとタスク情報の紐付け）
+- 構造体（タスクの情報）
+- 関数（各機能の実装）
+- 制御構文（メニュー表示とループ）
+
+### プロジェクト2: 成績計算プログラム
+
+```
+basics/exercises/grade-calculator/
+├── main.go
+└── README.md
+```
+
+**要件:**
+- 複数の学生の成績を入力
+- 各学生の平均点を計算
+- クラス全体の平均点を計算
+- 最高点と最低点を表示
+- 成績順にソート
+
+**使用する概念:**
+- マップ（学生名と成績の紐付け）
+- スライス（成績のリスト）
+- 関数（計算ロジック）
+- ループ（データの処理）
+
+### プロジェクト3: 簡易電卓
+
+```
+basics/exercises/calculator/
+├── main.go
+└── README.md
+```
+
+**要件:**
+- 四則演算（+、-、×、÷）
+- 複数の演算の連続実行
+- 計算履歴の表示
+- エラー処理（ゼロ除算など）
+
+**使用する概念:**
+- 関数（各演算の実装）
+- スイッチ文（演算子の判定）
+- スライス（履歴の保存）
+- エラーハンドリング
+
+---
+
+## よくあるエラーと解決方法
+
+### 1. インデックスの範囲外エラー
+
+```go
+// ❌ 誤り
+arr := [3]int{1, 2, 3}
+fmt.Println(arr[3]) // panic: index out of range
+
+// ✅ 正しい
+if len(arr) > 3 {
+    fmt.Println(arr[3])
+} else {
+    fmt.Println("インデックスが範囲外です")
+}
+```
+
+### 2. マップのゼロ値エラー
+
+```go
+// ❌ 誤り
+var m map[string]int
+m["key"] = 1 // panic: assignment to entry in nil map
+
+// ✅ 正しい
+m := make(map[string]int)
+m["key"] = 1
+```
+
+### 3. スライスの容量不足
+
+```go
+// ⚠️ 注意が必要
+s := make([]int, 3)
+s[3] = 4 // panic: index out of range
+
+// ✅ 正しい
+s := make([]int, 3)
+s = append(s, 4)
+```
+
+### 4. 変数のスコープ
+
+```go
+// ❌ 誤り
+if x := 10; x > 5 {
+    fmt.Println(x)
+}
+fmt.Println(x) // エラー: x is undefined
+
+// ✅ 正しい
+x := 10
+if x > 5 {
+    fmt.Println(x)
+}
+fmt.Println(x)
+```
+
+---
+
+## 次のステップ
+
+基礎編を修了したら、以下のトピックに進みましょう：
+
+1. **中級編へ進む**
+   - 構造体とメソッド
+   - インターフェース
+   - エラーハンドリング
+   - ゴルーチンとチャネル
+
+2. **標準パッケージを学ぶ**
+   - `fmt`: フォーマット入出力
+   - `strings`: 文字列操作
+   - `strconv`: 文字列変換
+   - `os`: オペレーティングシステム機能
+   - `io`: 入出力操作
+
+3. **実践的なプロジェクトを作る**
+   - CLIツールの開発
+   - ファイル操作プログラム
+   - 簡単なWebサーバー
+
+---
+
+## 参考リソース
+
+### 公式ドキュメント
+- [Go Tour](https://go.dev/tour/) - インタラクティブな学習
+- [Effective Go](https://go.dev/doc/effective_go) - ベストプラクティス
+- [Go by Example](https://gobyexample.com/) - サンプルコード集
+
+### おすすめの練習サイト
+- [Exercism - Go Track](https://exercism.org/tracks/go)
+- [LeetCode](https://leetcode.com/) - アルゴリズム問題
+- [HackerRank - Go](https://www.hackerrank.com/domains/go)
+
+### コミュニティ
+- [Go Forum](https://forum.golangbridge.org/)
+- [r/golang](https://www.reddit.com/r/golang/)
+- [Gophers Slack](https://gophers.slack.com/)
+
+---
+
+## チェックリスト
+
+基礎編を修了する前に、以下の項目を確認しましょう：
+
+- [ ] Hello Worldプログラムを実行できる
+- [ ] 変数の宣言と初期化の違いを理解している
+- [ ] if、for、switchの基本的な使い方を理解している
+- [ ] 関数の定義と呼び出しができる
+- [ ] 配列とスライスの違いを説明できる
+- [ ] マップの基本操作（追加、取得、削除）ができる
+- [ ] rangeを使ったループを書ける
+- [ ] 基本的なエラーを自分で解決できる
+- [ ] 演習問題を自力で解くことができる
+- [ ] 簡単なプログラムを一から書ける
+
+---
+
+## まとめ
+
+お疲れ様でした！この基礎編では以下のことを学びました：
+
+1. **Hello World**: Goプログラムの基本構造
+2. **変数と型**: データの扱い方と型システム
+3. **制御構文**: プログラムのフロー制御
+4. **関数**: コードの再利用と構造化
+5. **配列とスライス**: データのコレクション管理
+6. **マップ**: キー・バリュー型データの扱い方
+
+これらの知識は、Go言語プログラミングの基盤となります。しっかりと理解してから次のステップに進みましょう！
+
+質問や不明点があれば、[Issues](https://github.com/yourusername/go-learning/issues)で気軽に聞いてください。
+
+Happy Coding! 🎉
